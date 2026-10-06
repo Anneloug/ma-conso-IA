@@ -115,8 +115,16 @@ label.danger:focus-within{outline:3px solid var(--accent);outline-offset:2px}
 .privacy summary{font:inherit;font-weight:700;color:var(--ink-2);font-size:14.5px}
 .privacy details p{color:var(--ink-2);font-size:14.5px;margin-top:6px}
 .connect{background:var(--ink);color:var(--paper);border-radius:28px;padding:24px;margin:0 0 22px}
-.connect-head h2{font-size:clamp(24px,3.2vw,32px);font-weight:800;margin:0 0 4px}
-.connect-head p{margin:0 0 18px;opacity:.85;max-width:64ch}
+.connect-head{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none;border-radius:16px}
+.connect-head::-webkit-details-marker{display:none}
+.connect-head h2{font-size:clamp(24px,3.2vw,32px);font-weight:800;margin:0}
+.ch-state{display:block;font-size:15px;opacity:.85;margin-top:2px}
+.chev{flex:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center}
+.chev::before{content:"";width:10px;height:10px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.connect[open] .chev::before{transform:translateY(2px) rotate(-135deg)}
+.connect-head:focus-visible{outline:3px solid var(--paper);outline-offset:4px}
+.connect .intro{margin:14px 0 18px;opacity:.85;max-width:64ch}
+@media (prefers-reduced-motion:reduce){.chev::before{transition:none}}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .card{background:var(--paper);color:var(--ink);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:transform .15s}
 .card.ok{box-shadow:inset 0 0 0 3px var(--water)}
@@ -176,14 +184,15 @@ body.admin-mode #admin{display:block}
     </div>
   </section>
 
-  <section class="connect" id="connect">
-    <div class="connect-head">
-      <h2>Reliez toutes vos IA 🔌</h2>
-      <p>Claude, ChatGPT, Gemini ou n'importe quelle autre IA : importez son historique et la jauge se remplit toute seule. Refaites un import quand vous voulez, il remplace le précédent sans doublon.</p>
-    </div>
+  <details class="connect" id="connect" open>
+    <summary class="connect-head">
+      <span class="ch-text"><h2>Reliez toutes vos IA 🔌</h2><span class="ch-state" id="connectState"></span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </summary>
+    <p class="intro">Claude, ChatGPT, Gemini ou n'importe quelle autre IA : importez son historique et la jauge se remplit toute seule. Refaites un import quand vous voulez, il remplace le précédent sans doublon.</p>
     <div class="cards" id="cards"></div>
     <p class="fine">Pourquoi un import plutôt qu'une connexion directe ? Les assistants IA ne permettent pas à un site extérieur de lire votre historique. L'export officiel de vos données est le seul moyen fiable, et c'est aussi le plus discret : le fichier ne sort pas de votre ordinateur.</p>
-  </section>
+  </details>
 
   <div class="nav">
     <button class="icon" id="prev" aria-label="Période précédente">‹</button>
@@ -831,7 +840,22 @@ function statusText(imp){
   return `✅ Reliée : ${fr(imp.n,0)} message${imp.n>1?"s":""} du ${parse(keys[0]).toLocaleDateString("fr-FR")} au ${parse(keys[keys.length-1]).toLocaleDateString("fr-FR")}. Import du ${parse(imp.at).toLocaleDateString("fr-FR")}.`;
 }
 let cardsSig="";
+let connectInit=false;
+function initConnect(){
+  if(connectInit) return; connectInit=true;
+  const d=$("connect"); let pref=null;
+  try{ pref=localStorage.getItem("empreinte-ia-relier-ouvert"); }catch(e){}
+  d.open = pref===null ? Object.keys(state.imports).length===0 : pref==="1";
+  d.addEventListener("toggle",()=>{ try{ localStorage.setItem("empreinte-ia-relier-ouvert", d.open?"1":"0"); }catch(e){} });
+}
+function renderConnectState(){
+  const names=Object.keys(state.imports).map(srcName);
+  $("connectState").textContent = names.length
+    ? `✅ ${names.length} IA reliée${names.length>1?"s":""} : ${names.join(", ")}`
+    : "Aucune IA reliée pour l'instant";
+}
 function renderCards(){
+  initConnect(); renderConnectState();
   const custom=Object.keys(state.imports).filter(k=>k.startsWith("x:"));
   const sig=custom.join("|");
   const box=$("cards");

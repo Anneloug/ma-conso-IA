@@ -155,6 +155,50 @@ body.admin-mode #admin{display:block}
 .card input[type=text]{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%;color:var(--ink)}
 .card .row2{display:flex;gap:8px}
 .card .row2 .drop{flex:1}
+.demo{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--paper);border:2px solid var(--accent);border-radius:20px;padding:16px 20px;margin:0 0 16px}
+.demo[hidden]{display:none}
+.demo p{margin:0;max-width:52ch}
+.demo-t{font-family:var(--display);font-weight:800;font-size:20px}
+.demo-cta{display:flex;gap:10px;flex-wrap:wrap}
+.cta{border:0;border-radius:14px;padding:11px 16px;font-weight:700;cursor:pointer;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
+.cta small{font-weight:400;opacity:.8;font-size:13px}
+.cta.alt{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.demo-tag{display:none;font:700 12px var(--body);background:var(--accent);color:#fff;border-radius:999px;padding:2px 9px;vertical-align:middle;margin-left:6px}
+body.is-demo .demo-tag{display:inline-block}
+body.is-demo .hero{box-shadow:inset 0 0 0 2px var(--accent)}
+.metric-def{margin:0 0 10px;color:var(--ink-2);font-size:15px;max-width:56ch}
+.term{border-bottom:2px dotted currentColor;cursor:help;position:relative;white-space:nowrap}
+.term:focus{outline:none;border-bottom-style:solid}
+.term:hover::after,.term:focus::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);width:min(260px,70vw);white-space:normal;background:var(--ink);color:var(--paper);font:400 13.5px/1.4 var(--body);padding:9px 11px;border-radius:10px;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.guess{background:var(--bg);border-radius:16px;padding:14px 16px;margin:0 0 12px}
+.guess p{margin:0 0 10px;font-weight:700}
+.guess .opts{display:flex;gap:8px;flex-wrap:wrap}
+.guess .opts button{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:9px 14px;cursor:pointer;font-weight:700}
+.guess .opts button:hover{border-color:var(--accent)}
+.guess .skip{border:0;background:none;color:var(--ink-2);text-decoration:underline;cursor:pointer;font-size:13.5px;padding:6px 4px;margin-top:6px}
+.guess .fb{font-weight:400;margin:0}
+.hero.veiled #big,.hero.veiled #raw,.hero.veiled .tankbox,.hero.veiled #delta,.hero.veiled #proj{filter:blur(12px);user-select:none;pointer-events:none}
+body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #scale{filter:blur(8px)}
+.why{margin-top:14px}
+.why summary{cursor:pointer;font-weight:700;color:var(--ink-2)}
+.why[open] summary{margin-bottom:8px}
+.why p{margin:0 0 8px;max-width:62ch;font-size:15px}
+.why svg{width:100%;max-width:520px;height:auto;display:block;margin:6px 0 10px}
+.why svg text{fill:var(--ink);font:13px var(--body)}
+.row .cost{display:block;color:var(--accent);font-weight:700;font-size:13.5px;margin-top:2px}
+.levers,.scale{list-style:none;margin:0;padding:0}
+.levers li{padding:12px 0;border-top:1px solid var(--line)}
+.levers li:first-child{border-top:0}
+.levers b{display:block}
+.levers .save{color:var(--accent);font-weight:700}
+.levers .how{display:block;color:var(--ink-2);font-size:14px;margin-top:2px}
+.scale li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:8px 0}
+.scale .bar{grid-column:1/-1;height:8px;background:var(--bg);border-radius:8px;overflow:hidden}
+.scale .bar i{display:block;height:100%;background:var(--ink-2);border-radius:8px;opacity:.5}
+.scale li.me span:first-child{font-weight:700}
+.scale li.me .bar i{background:var(--accent);opacity:1}
+.scale .n{font-variant-numeric:tabular-nums;font-weight:700}
+.fine-print{font-size:13px;color:var(--ink-2);margin:10px 0 0}
 </style>
 </head>
 <body>
@@ -179,8 +223,19 @@ body.admin-mode #admin{display:block}
       <p><b>Vos usages ne quittent jamais votre appareil.</b> Les historiques importés sont lus dans votre navigateur, et seul le nombre de messages par jour est gardé, chez vous. Ni le contenu de vos conversations, ni vos chiffres, ni votre nom ou votre e-mail ne sont transmis.</p>
       <p>La page compte seulement trois totaux anonymes, sans cookies : les visiteurs, les utilisateurs actifs (qui ont relié au moins une IA) et les visiteurs récurrents.</p>
       <details><summary>Ce qui est enregistré exactement</summary>
-        <p>Le comptage utilise GoatCounter, un outil de mesure d'audience sans cookies qui ne crée pas de profil. Il reçoit la visite de la page, et deux signaux sans contenu : « une IA a été reliée » (une seule fois par appareil) et « visite un autre jour que la précédente ». Pour savoir s'il faut envoyer ces signaux, la page note sur votre appareil la date de votre dernière visite et un oui ou non ; ces deux informations ne sont jamais envoyées. Aucun chiffre d'usage, aucun contenu, aucun nom ni e-mail.</p>
+        <p>Le comptage utilise GoatCounter, un outil de mesure d'audience sans cookies qui ne crée pas de profil. Il reçoit la visite de la page avec des informations techniques générales (navigateur, taille d'écran, pays déduit de l'adresse IP, qui n'est pas conservée), et deux signaux sans contenu : « une IA a été reliée » (une seule fois par appareil) et « visite un autre jour que la précédente ». Pour savoir s'il faut envoyer ces signaux, la page note sur votre appareil la date de votre dernière visite et un oui ou non ; ces deux informations ne sont jamais envoyées. Aucun chiffre d'usage, aucun contenu, aucun nom ni e-mail.</p>
       </details>
+    </div>
+  </section>
+
+  <section class="demo" id="demoBanner" hidden>
+    <div>
+      <p class="demo-t">👀 Ceci est un exemple</p>
+      <p>Vous regardez le suivi d'une personne fictive qui utilise l'IA tous les jours. Reliez votre IA pour découvrir le vôtre.</p>
+    </div>
+    <div class="demo-cta">
+      <button class="cta" id="ctaImport">Importer mon historique <small>2 minutes</small></button>
+      <button class="cta alt" id="ctaManual">Noter ma journée à la main <small>10 secondes</small></button>
     </div>
   </section>
 
@@ -201,7 +256,7 @@ body.admin-mode #admin{display:block}
     <button class="back" id="today" hidden>Revenir à aujourd'hui</button>
   </div>
 
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="tankbox"><div class="tank" id="tank" aria-hidden="true"></div><p class="cap" id="tankCap"></p></div>
     <div>
       <div class="seg metrics" role="group" aria-label="Indicateur" id="metrics">
@@ -209,23 +264,40 @@ body.admin-mode #admin{display:block}
         <button data-m="energy" aria-pressed="false">Électricité</button>
         <button data-m="co2" aria-pressed="false">CO₂</button>
       </div>
+      <p class="metric-def" id="metricDef"></p>
+      <div class="guess" id="guess" hidden></div>
       <div class="big" id="big"></div>
       <p class="raw" id="raw"></p>
       <span class="delta" id="delta"></span>
       <p class="proj" id="proj"></p>
+      <details class="why" id="why"><summary id="whyTitle"></summary><div id="whyBody"></div></details>
     </div>
   </section>
 
   <div class="grid">
     <section class="panel">
-      <h2 id="chartTitle">Évolution</h2>
+      <h2><span id="chartTitle">Évolution</span> <span class="demo-tag">exemple</span></h2>
       <p class="note" id="chartNote"></p>
       <div class="chart" id="chart"></div>
     </section>
     <section class="panel">
-      <h2>En équivalents concrets</h2>
+      <h2>En équivalents concrets <span class="demo-tag">exemple</span></h2>
       <p class="note">Total de la période exprimé dans chaque unité.</p>
       <ul class="ladder" id="ladder"></ul>
+    </section>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Comment réduire votre impact 🌱 <span class="demo-tag">exemple</span></h2>
+      <p class="note">Ce que vous économiseriez sur la période, avec quelques gestes simples.</p>
+      <ul class="levers" id="levers"></ul>
+    </section>
+    <section class="panel">
+      <h2>À l'échelle de votre vie ⚖️ <span class="demo-tag">exemple</span></h2>
+      <p class="note" id="scaleNote"></p>
+      <ul class="scale" id="scale"></ul>
+      <p class="fine-print" id="scaleSrc"></p>
     </section>
   </div>
 
@@ -241,7 +313,7 @@ body.admin-mode #admin{display:block}
       <div class="status" id="status" aria-live="polite"></div>
     </section>
     <section class="panel">
-      <h2>Qui consomme le plus ?</h2>
+      <h2>Qui consomme le plus ? <span class="demo-tag">exemple</span></h2>
       <p class="note">Part de chaque type dans l'électricité consommée sur la période.</p>
       <ul class="ladder" id="mix"></ul>
     </section>
@@ -287,15 +359,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
    Créez un compte gratuit sur https://www.goatcounter.com, choisissez un code
    (par ex. "mon-ia"), puis remplacez "" par ce code ci-dessous.
    Laissez "" pour n'envoyer aucune statistique. */
-const GOATCOUNTER_CODE = "https://anneloug.goatcounter.com/count";
+const GOATCOUNTER_CODE = "";
 </script>
 <script>
 (() => {
 const TYPES = [
-  {k:"q", e:"💬", label:"Question simple", hint:"Une réponse de chatbot (~400 tokens)", size:"chat"},
-  {k:"c", e:"🧠", label:"Conversation approfondie", hint:"Réponse longue, raisonnement ou outils (~5 000 tokens)", size:"report"},
+  {k:"q", e:"💬", label:"Question simple", hint:"Une réponse de chatbot (~400 [tokens])", size:"chat"},
+  {k:"c", e:"🧠", label:"Conversation approfondie", hint:"Réponse longue, raisonnement ou outils (~5 000 [tokens])", size:"report"},
   {k:"i", e:"🎨", label:"Image générée", hint:"Une image produite", size:null},
-  {k:"a", e:"🤖", label:"Session agent ou code", hint:"Une session complète d'agent (~100 000 tokens)", size:"agent"},
+  {k:"a", e:"🤖", label:"Session agent ou code", hint:"Une session complète d'agent (~100 000 [tokens])", size:"agent"},
 ];
 /* Impacts par requête issus d'EcoLogits v0.10 (GenAI Impact), tels que publiés en juin 2026
    par Andy Masley sous licence CC0 : wh = électricité, ml = eau consommée, emb = g CO2e de fabrication du matériel.
@@ -314,6 +386,16 @@ const ECO = {
 (()=>{ const ids=["gpt-5.5","claude-sonnet-4-6","gemini-3.5-flash"], avg={name:"Moyenne GPT-5.5, Claude Sonnet 4.6 et Gemini 3.5 Flash"};
   for(const s of ["chat","report","agent"]) avg[s]=[0,1,2].map(i=>ids.reduce((t,id)=>t+ECO[id][s][i],0)/ids.length);
   ECO.avg=avg; })();
+/* Fourchettes d'incertitude EcoLogits (intervalle à 95 %), en multiplicateur de la valeur moyenne :
+   [électricité basse, haute, eau basse, haute], déduites des valeurs min/max publiées pour chaque modèle. */
+const RANGE = {"gpt-5.5":[.655,1.345,.655,1.345],"gpt-5.5-pro":[.566,1.434,.566,1.434],"gpt-5.4-mini":[.256,1.744,.256,1.744],
+  "claude-opus-4-8":[.689,1.311,.598,1.402],"claude-sonnet-4-6":[.749,1.251,.654,1.346],"claude-haiku-4-5":[.552,1.446,.473,1.527],
+  "gemini-3.1-pro":[.646,1.354,.646,1.354],"gemini-3.5-flash":[.703,1.297,.703,1.297],"gemini-3.1-flash-lite":[.263,1.737,.263,1.737],
+  "avg":[.70,1.30,.67,1.33],"avgSmall":[.36,1.64,.33,1.67]};
+(()=>{ const ids=["gpt-5.4-mini","claude-haiku-4-5","gemini-3.1-flash-lite"], avg={name:"Moyenne des petits modèles"};
+  for(const s of ["chat","report","agent"]) avg[s]=[0,1,2].map(i=>ids.reduce((t,id)=>t+ECO[id][s][i],0)/ids.length);
+  ECO.avgSmall=avg; })();
+const SMALL_OF = id => id.startsWith("claude")?"claude-haiku-4-5" : id.startsWith("gpt")?"gpt-5.4-mini" : id.startsWith("gemini")?"gemini-3.1-flash-lite" : "avgSmall";
 const WATER_PER_WH = 3.7;   // ratio moyen eau/électricité d'EcoLogits, utilisé pour les images
 const DEFAULTS = {v:2, model:{claude:"claude-sonnet-4-6", chatgpt:"gpt-5.5", gemini:"gemini-3.5-flash", other:"avg", manual:"avg"}, gPerKwh:480, imageWh:3};
 
@@ -355,29 +437,58 @@ function shift(p,a,n){
   return x;
 }
 
-function modelFor(src){
+function modelIdFor(src){
   const m=state.settings.model, key = src==="manual"?"manual" : (src in m)? src : "other";
-  return ECO[m[key]] || ECO.avg;
+  return ECO[m[key]] ? m[key] : "avg";
+}
+function modelFor(src){ return ECO[modelIdFor(src)]; }
+// impact d'une seule requête d'un type donné, pour un modèle
+function unitImpact(modelId, k){
+  const s=state.settings, t=TYPES.find(x=>x.k===k);
+  let wh, ml, emb;
+  if(t.size) [wh,ml,emb]=ECO[modelId][t.size]; else { wh=+s.imageWh||0; ml=wh*WATER_PER_WH; emb=0; }
+  return {energy:wh, water:ml, co2:wh/1000*(+s.gPerKwh||0)+emb};
 }
 // impact d'un ensemble d'usages pour une source donnée ; byType = électricité par type
 function impactOf(counts, src="manual"){
-  const s=state.settings, M=modelFor(src), out={energy:0, water:0, co2:0, byType:{q:0,c:0,i:0,a:0}};
+  const s=state.settings, id=modelIdFor(src), M=ECO[id], R=RANGE[id]||[1,1,1,1], g=+s.gPerKwh||0;
+  const out={energy:0, water:0, co2:0, lo:{energy:0,water:0,co2:0}, hi:{energy:0,water:0,co2:0}, byType:{q:0,c:0,i:0,a:0}};
   for(const t of TYPES){
     const n=counts[t.k]||0; if(!n) continue;
-    let wh, ml, emb;
-    if(t.size){ [wh,ml,emb]=M[t.size]; } else { wh=+s.imageWh||0; ml=wh*WATER_PER_WH; emb=0; }
-    out.energy+=n*wh; out.water+=n*ml; out.co2+=n*(wh/1000*(+s.gPerKwh||0)+emb); out.byType[t.k]+=n*wh;
+    let wh, ml, emb, r=R;
+    if(t.size){ [wh,ml,emb]=M[t.size]; } else { wh=+s.imageWh||0; ml=wh*WATER_PER_WH; emb=0; r=[.5,1.5,.5,1.5]; }
+    out.energy+=n*wh; out.water+=n*ml; out.co2+=n*(wh/1000*g+emb); out.byType[t.k]+=n*wh;
+    out.lo.energy+=n*wh*r[0]; out.hi.energy+=n*wh*r[1];
+    out.lo.water+=n*ml*r[2]; out.hi.water+=n*ml*r[3];
+    out.lo.co2+=n*(wh*r[0]/1000*g+emb); out.hi.co2+=n*(wh*r[1]/1000*g+emb);
   }
   return out;
 }
+/* ---------- données d'exemple (affichées tant que la personne n'a rien saisi) ---------- */
+function isDemo(){ return !Object.keys(state.entries).length && !Object.keys(state.imports).length; }
+const DEMO=(()=>{ let a=20261006; const rnd=()=>{ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
+  const days={}, t0=today();
+  for(let i=0;i<400;i++){
+    const d=addDays(t0,-i), we=d.getDay()===0||d.getDay()===6, f=we?0.35:1, k=ymd(d);
+    days[k]={ q:Math.round((6+rnd()*14)*f), c:Math.round((1+rnd()*4)*f), i:rnd()<(we?0.4:0.25)?1+Math.floor(rnd()*2):0, a:!we&&rnd()<0.18?1:0 };
+  }
+  return days; })();
 function totals(s,e){
-  const c={q:0,c:0,i:0,a:0}, acc={energy:0,water:0,co2:0,byType:{q:0,c:0,i:0,a:0}};
-  const add=(x,src)=>{ for(const k in c) c[k]+=x[k]||0; const r=impactOf(x,src); acc.energy+=r.energy; acc.water+=r.water; acc.co2+=r.co2; for(const k in c) acc.byType[k]+=r.byType[k]; };
+  const c={q:0,c:0,i:0,a:0}, acc={energy:0,water:0,co2:0,lo:{energy:0,water:0,co2:0},hi:{energy:0,water:0,co2:0},byType:{q:0,c:0,i:0,a:0}}, perSrc={};
+  const add=(x,src)=>{
+    const ps=perSrc[src]||(perSrc[src]={q:0,c:0,i:0,a:0});
+    for(const k in c){ c[k]+=x[k]||0; ps[k]+=x[k]||0; }
+    const r=impactOf(x,src); for(const m of ["energy","water","co2"]){ acc[m]+=r[m]; acc.lo[m]+=r.lo[m]; acc.hi[m]+=r.hi[m]; }
+    for(const k in c) acc.byType[k]+=r.byType[k];
+  };
+  const demo=isDemo(), last=today();
   for(let d=new Date(s); d<=e; d=addDays(d,1)){
-    const key=ymd(d), r=state.entries[key]; if(r) add(r,"manual");
+    const key=ymd(d);
+    if(demo){ if(d<=last && DEMO[key]) add(DEMO[key],"demo"); continue; }
+    const r=state.entries[key]; if(r) add(r,"manual");
     for(const src in state.imports){ const x=state.imports[src].days[key]; if(x) add(x,src); }
   }
-  return {counts:c, ...acc};
+  return {counts:c, perSrc, ...acc};
 }
 
 /* ---------- persistance ---------- */
@@ -436,16 +547,85 @@ function pickRef(m,v){
   return {best, next};
 }
 
+/* ---------- vocabulaire expliqué ---------- */
+const GLOSS={
+  "tokens":"Un token est un morceau de mot. 400 tokens font environ 300 mots, soit une réponse de chatbot classique.",
+  "Wh":"Wattheure : l'énergie consommée par un appareil de 1 watt pendant une heure. Une recharge de smartphone représente environ 15 Wh.",
+  "CO₂e":"Équivalent CO₂ : tous les gaz à effet de serre convertis en CO₂ pour pouvoir les additionner.",
+  "fourchette":"EcoLogits ne connaît pas la taille exacte des modèles fermés : chaque chiffre est une estimation, avec une valeur basse et une valeur haute.",
+  "eau consommée":"L'eau évaporée qui ne retourne pas dans les rivières, pas celle qui est prélevée puis rendue.",
+};
+function term(w,label){ const tip=GLOSS[w]; return `<span class="term" tabindex="0" data-tip="${tip.replace(/"/g,"&quot;")}" aria-label="${(label||w)} : ${tip.replace(/"/g,"&quot;")}">${label||w}</span>`; }
+function withTerms(txt){ return txt.replace(/\[([^\]]+)\]/g,(m,w)=>GLOSS[w]?term(w):w); }
+const METRIC_DEF={
+  water:()=>`L'${term("eau consommée")} par les centres de données et les centrales qui les alimentent.`,
+  energy:()=>`L'électricité consommée par les serveurs pour produire les réponses, en ${term("Wh")}.`,
+  co2:()=>`Les émissions de gaz à effet de serre, en grammes de ${term("CO₂e")}, électricité et fabrication des serveurs comprises.`,
+};
+const WHY={
+  water:{t:"💧 D'où vient cette eau ?", b:`<svg viewBox="0 0 520 170" role="img" aria-label="L'eau s'évapore à deux endroits : au refroidissement des serveurs et à la production d'électricité">
+      <rect x="10" y="40" width="150" height="70" rx="12" fill="var(--bg)" stroke="var(--line)"/><text x="85" y="72" text-anchor="middle">⚡ Centrale</text><text x="85" y="92" text-anchor="middle">électrique</text>
+      <path d="M165 75 H 345" stroke="var(--energy)" stroke-width="4" marker-end="url(#ar)"/><text x="255" y="66" text-anchor="middle">électricité</text>
+      <rect x="350" y="40" width="160" height="70" rx="12" fill="var(--bg)" stroke="var(--line)"/><text x="430" y="72" text-anchor="middle">🖥️ Centre</text><text x="430" y="92" text-anchor="middle">de données</text>
+      <path d="M60 36 C 50 20, 70 14, 60 2 M95 36 C 85 20, 105 14, 95 2" stroke="var(--water)" stroke-width="3" fill="none"/>
+      <path d="M410 36 C 400 20, 420 14, 410 2 M450 36 C 440 20, 460 14, 450 2" stroke="var(--water)" stroke-width="3" fill="none"/>
+      <text x="85" y="140" text-anchor="middle">Vapeur des tours</text><text x="85" y="158" text-anchor="middle">de refroidissement</text>
+      <text x="430" y="140" text-anchor="middle">Refroidissement</text><text x="430" y="158" text-anchor="middle">des serveurs</text>
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="var(--energy)"/></marker></defs>
+    </svg>
+    <p>Les serveurs chauffent en calculant les réponses : beaucoup de centres de données les refroidissent en évaporant de l'eau. Les centrales qui produisent leur électricité en évaporent aussi. Seule l'eau qui ne revient pas dans les rivières est comptée ici.</p>`},
+  energy:{t:"⚡ Pourquoi ça consomme ?", b:`<p>Pour chaque mot d'une réponse, des puces spécialisées font des milliards de calculs. Deux choses font grimper la facture : la taille du modèle (un grand modèle calcule beaucoup plus par mot) et la longueur de la réponse. C'est pourquoi une session d'agent de 100 000 ${term("tokens")} pèse des centaines de fois plus qu'une question simple.</p>`},
+  co2:{t:"☁️ D'où viennent ces émissions ?", b:`<p>Deux sources s'additionnent. D'abord l'électricité : son empreinte dépend de la manière dont elle est produite (charbon, gaz, nucléaire, renouvelables). Ensuite la fabrication des serveurs, répartie sur toutes les requêtes qu'ils traiteront pendant leur vie.</p>`},
+};
+const ART={"gorgée":"une gorgée","verre d'eau":"un verre d'eau","bouteille de 1,5 L":"une bouteille de 1,5 L","douche de 5 min":"une douche de 5 min","baignoire":"une baignoire","piscine olympique":"une piscine olympique",
+  "heure d'ampoule LED":"une heure d'ampoule LED","recharge de smartphone":"une recharge de smartphone","litre d'eau bouilli":"un litre d'eau bouilli","km en voiture électrique":"un km en voiture électrique","cycle de lave-linge":"un cycle de lave-linge","journée d'un foyer français":"une journée d'électricité d'un foyer",
+  "envoi d'e-mail simple":"un e-mail simple","km en voiture thermique":"un km en voiture","repas végétarien":"un repas végétarien","repas avec du bœuf":"un repas avec du bœuf","aller-retour Paris–New York en avion":"un aller-retour Paris–New York"};
+const PERIOD_WORD={day:"ce jour-là",week:"cette semaine",month:"ce mois-ci",year:"cette année"};
+
+/* ---------- devinette ---------- */
+const guessed=new Map();
+function guessOff(){ try{ return localStorage.getItem("empreinte-ia-devinette")==="off"; }catch(e){ return false; } }
+function niceNum(x){ if(x<=0) return "0"; const p=Math.pow(10,Math.floor(Math.log10(x))-1); return fr(Math.round(x/p)*p, x<1?3:x<10?1:0); }
+function renderGuess(v,best,key){
+  const box=$("guess"), hero=$("hero");
+  const st=guessed.get(key);
+  if(v<=0 || guessOff() || st==="skip"){ box.hidden=true; hero.classList.remove("veiled"); document.body.classList.remove("veiled"); return; }
+  const n=v/best[1], unit=best[2], em=best[3];
+  box.hidden=false;
+  if(st){ // déjà répondu : on montre le retour
+    hero.classList.remove("veiled"); document.body.classList.remove("veiled");
+    box.innerHTML=`<p class="fb">${st}</p>`; return;
+  }
+  hero.classList.add("veiled"); document.body.classList.add("veiled");
+  const opts=[n/10,n,n*10]; const order=[[1,0,2],[0,2,1],[2,1,0]][Math.floor(n*1000)%3];
+  box.innerHTML=`<p>🤔 Avant de regarder : à votre avis, combien ${/^[aeéèêiouyh]/i.test(unit)?"d'":"de "}${unit} ${em} ${PERIOD_WORD[period]} ?</p>
+    <div class="opts">${order.map(i=>`<button data-i="${i}">≈ ${niceNum(opts[i])}</button>`).join("")}</div>
+    <button class="skip" data-skip="1">Voir directement</button> <button class="skip" data-off="1">Ne plus me proposer de deviner</button>`;
+  box.onclick=ev=>{
+    const b=ev.target.closest("button"); if(!b) return;
+    if(b.dataset.off){ try{ localStorage.setItem("empreinte-ia-devinette","off"); }catch(e){} guessed.set(key,"skip"); renderAll(false); return; }
+    if(b.dataset.skip){ guessed.set(key,"skip"); renderAll(false); return; }
+    const i=+b.dataset.i;
+    const fb = i===1 ? `🎯 Bien vu : c'est environ ${niceNum(n)} ${unit}.`
+      : `${i===0?"📈 C'est 10 fois plus":"📉 C'est 10 fois moins"} que votre estimation : environ ${niceNum(n)} ${unit}. Pas facile de se représenter ces quantités, c'est tout l'intérêt de la page !`;
+    guessed.set(key,fb); renderAll(false);
+  };
+}
+
 function renderHero(cur, prev, s, e){
   const M=METRICS[metric], v=cur[metric];
   document.documentElement.style.setProperty("--accent", `var(${M.color})`);
+  $("metricDef").innerHTML=METRIC_DEF[metric]();
+  $("whyTitle").textContent=WHY[metric].t; $("whyBody").innerHTML=WHY[metric].b;
   const {best,next}=pickRef(metric,v);
   const n=v/best[1];
   const name = n>=2 ? best[2] : best[0];
   $("big").innerHTML = v===0 ? `0 <small>Rien au compteur pour l'instant ${M.drop}</small>` :
     `${fr(n, n<0.1?2:n<10?1:0)} <small>${best[3]} ${name}</small>`;
-  $("raw").textContent = v===0 ? "Ajoutez vos usages dans « Noter mes usages »." :
-    `${M.fmtRaw(v)} au total, pour ${fr(cur.counts.q+cur.counts.c+cur.counts.i+cur.counts.a,0)} usages.`;
+  const nb=cur.counts.q+cur.counts.c+cur.counts.i+cur.counts.a;
+  $("raw").innerHTML = v===0 ? "Reliez une IA ou notez vos usages pour remplir la jauge." :
+    `${M.fmtRaw(v)} au total pour ${fr(nb,0)} usage${nb>1?"s":""}, dans une ${term("fourchette")} de ${M.fmtRaw(cur.lo[metric])} à ${M.fmtRaw(cur.hi[metric])}.`;
+  renderGuess(v,best,`${metric}|${period}|${ymd(s)}|${isDemo()?"d":"u"}`);
 
   const pv=prev[metric];
   if(pv>0){ const d=(v-pv)/pv*100; $("delta").textContent = (d>=0?"+":"")+fr(d,0)+" % par rapport à la période précédente"; $("delta").hidden=false; }
@@ -457,7 +637,7 @@ function renderHero(cur, prev, s, e){
   if(v>0 && days>0){
     const perDay=v/days, goal=M.goal[1], dGoal=goal/perDay;
     const txt = dGoal<365 ? fr(dGoal,0)+" jours" : fr(dGoal/365, dGoal/365<100?1:0)+" ans";
-    $("proj").textContent = `À ce rythme (${M.fmtRaw(perDay)} par jour en moyenne), il vous faudrait ${txt} pour ${M.goalVerb}.`;
+    $("proj").textContent = `À ce rythme (${M.fmtRaw(perDay)} par jour en moyenne), il faudrait ${txt} pour ${M.goalVerb}.`;
   } else $("proj").textContent="";
 
   // cuve : remplissage de l'unité de référence suivante
@@ -465,7 +645,7 @@ function renderHero(cur, prev, s, e){
   if(v===0){ frac=0; target=best; }
   else if(next){ frac=Math.min(1,v/next[1]); target=next; }
   else { frac=1; target=best; }
-  drawTank(frac, target);
+  drawTank(frac, target, v);
 }
 
 const SHAPES={
@@ -474,7 +654,7 @@ const SHAPES={
   co2:{top:34,bottom:236,body:"M120 34 C182 34 206 84 200 134 C194 186 158 228 120 236 C82 228 46 186 40 134 C34 84 58 34 120 34 Z",extra:'<path d="M112 236 L120 246 L128 236 Z" fill="var(--ink)"/><path d="M120 246 C112 258 132 266 120 282" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>'},
 };
 let tankShape=null;
-function drawTank(frac, target){
+function drawTank(frac, target, v){
   const S=SHAPES[METRICS[metric].shape], H=300;
   const level = S.bottom-(S.bottom-S.top)*(frac>0?Math.max(frac,0.03):0);
   if(tankShape!==metric){
@@ -497,7 +677,10 @@ function drawTank(frac, target){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ $("level").style.transform=`translateY(${level-8}px)`; }));
   $("bubbles").style.display = frac>0.08 ? "" : "none";
   $("tankPct").textContent = frac>=1 ? "Plein !" : fr(frac*100, frac<0.1?1:0)+" %";
-  $("tankCap").textContent = frac>=1 ? `Dernier palier dépassé ${target[3]}` : `de remplissage vers le palier suivant : ${target[3]} ${target[0]}`;
+  const art=ART[target[0]]||target[0];
+  $("tankCap").textContent = !v ? `La jauge se remplira au fil de vos usages ${target[3]}`
+    : frac>=1 ? `Dernier palier dépassé ${target[3]}`
+    : `Encore ${fr(Math.max(1,(1-frac)*100),0)} % pour atteindre ${art} ${target[3]}`;
 }
 
 function renderLadder(cur){
@@ -559,12 +742,13 @@ function renderRows(){
   const box=$("rows"); box.innerHTML="";
   for(const t of TYPES){
     const row=document.createElement("div"); row.className="row";
-    row.innerHTML=`<div class="who"><i aria-hidden="true">${t.e}</i><div><b>${t.label}</b><span>${t.hint}</span></div></div>
+    const one=unitImpact(modelIdFor("manual"),t.k);
+    row.innerHTML=`<div class="who"><i aria-hidden="true">${t.e}</i><div><b>${t.label}</b><span>${withTerms(t.hint)}</span><span class="cost">≈ ${METRICS.water.fmtRaw(one.water)} d'eau · ${METRICS.energy.fmtRaw(one.energy)} par usage</span></div></div>
       <div class="stepper"><button aria-label="Retirer : ${t.label}" data-k="${t.k}" data-d="-1">−</button><output aria-live="polite">${r[t.k]||0}</output><button class="plus" aria-label="Ajouter : ${t.label}" data-k="${t.k}" data-d="1">+</button></div>`;
     box.appendChild(row);
   }
   const dd=parse(d), all=totals(dd,dd), imported=Object.values(state.imports).reduce((s,x)=>{const y=x.days[d]; return s+(y?(y.q||0)+(y.c||0)+(y.i||0)+(y.a||0):0)},0);
-  $("dayTotal").textContent = (all.energy ? `${METRICS.water.fmtRaw(all.water)} · ${METRICS.energy.fmtRaw(all.energy)}` : "") + (imported ? ` · dont ${fr(imported,0)} importés` : "");
+  $("dayTotal").textContent = isDemo() ? "" : (all.energy ? `${METRICS.water.fmtRaw(all.water)} · ${METRICS.energy.fmtRaw(all.energy)}` : "") + (imported ? ` · dont ${fr(imported,0)} importés` : "");
 }
 
 function renderHyp(){
@@ -592,6 +776,59 @@ function renderHyp(){
   box.appendChild(reset);
 }
 
+/* ---------- leviers d'action ---------- */
+function renderLevers(cur){
+  const M=METRICS[metric], ul=$("levers"); ul.innerHTML="";
+  const val=(id,k)=>unitImpact(id,k)[metric];
+  let small=0, concise=0, agents=0, images=0, smallName=new Set();
+  for(const src in cur.perSrc){
+    const c=cur.perSrc[src], id=modelIdFor(src), sm=SMALL_OF(id);
+    if(id!==sm && c.q){ small+=c.q*Math.max(0,val(id,"q")-val(sm,"q")); smallName.add(ECO[sm].name.replace("Moyenne des petits modèles","un petit modèle")); }
+    concise+=c.c*val(id,"c")*0.5;
+    agents+=c.a*val(id,"a")*0.25;
+    images+=c.i*val(id,"i")*0.5;
+  }
+  const tot=cur[metric]||1;
+  const L=[
+    {v:small, t:"Utiliser un petit modèle pour les questions simples", how:`Pour une définition ou une reformulation, ${[...smallName].join(", ")||"un petit modèle"} suffit souvent et consomme bien moins.`},
+    {v:concise, t:"Demander des réponses plus courtes", how:"Ajoutez « sois concis » à vos conversations approfondies : deux fois moins de texte, c'est environ deux fois moins d'énergie."},
+    {v:agents, t:"Éviter une session d'agent sur quatre", how:"Une demande précise dès le départ évite les relances et les sessions refaites."},
+    {v:images, t:"Générer une image sur deux en moins", how:"Décrivez précisément l'image voulue pour éviter les essais successifs."},
+  ].filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  if(!L.length){ ul.innerHTML=`<li><span class="how">Vos leviers apparaîtront ici dès vos premiers usages.</span></li>`; return; }
+  for(const x of L){
+    const {best}=pickRef(metric,x.v), n=x.v/best[1];
+    const li=document.createElement("li");
+    li.innerHTML=`<b>${x.t}</b><span class="save">− ${M.fmtRaw(x.v)} (${fr(x.v/tot*100,0)} %), soit ${fr(n,n<10?1:0)} ${n>=2?best[2]:best[0]} ${best[3]}</span><span class="how">${x.how}</span>`;
+    ul.appendChild(li);
+  }
+}
+/* ---------- mise à l'échelle avec la vie courante ---------- */
+const DAILY_REF={
+  water:[["☕ Une tasse de café",3800],["🍔 Un burger de bœuf",6000],["🚿 Une douche de 5 min",60000]],
+  energy:[["📱 Une recharge de smartphone",15],["🫖 Faire bouillir 1 L d'eau",110],["🎮 Une heure de console de jeux",200],["🏠 Une journée d'électricité d'un foyer",13000]],
+  co2:[["🚗 1 km en voiture",120],["☕ Une tasse de café",210],["🥗 Un repas végétarien",510],["🍔 Un burger de bœuf",3000]],
+};
+const DAILY_SRC={
+  water:"Eau douce consommée uniquement (sans l'eau de pluie absorbée par les cultures), d'après le Water Footprint Network ; douche : environ 12 L par minute.",
+  energy:"Ordres de grandeur courants : console de jeux d'environ 200 W, foyer français d'environ 4 700 kWh par an.",
+  co2:"Ordres de grandeur courants : café et burger d'après Poore et Nemecek (2018), repas végétarien d'après l'ADEME.",
+};
+function renderScale(cur,s,e){
+  const M=METRICS[metric], ul=$("scale"); ul.innerHTML="";
+  const t=today(), end=e<t?e:t, days=end<s?0:Math.round((end-s)/864e5)+1;
+  const perDay=days?cur[metric]/days:0;
+  $("scaleNote").textContent = perDay ? `Votre usage moyen d'une journée, comparé à des gestes du quotidien.` : "Vos usages apparaîtront ici, comparés à des gestes du quotidien.";
+  $("scaleSrc").textContent=DAILY_SRC[metric];
+  const rows=[["🤖 Votre IA, par jour",perDay,true],...DAILY_REF[metric].map(r=>[r[0],r[1],false])].sort((a,b)=>b[1]-a[1]);
+  const max=Math.max(...rows.map(r=>r[1]),1e-9);
+  for(const [label,v,me] of rows){
+    const li=document.createElement("li"); if(me) li.className="me";
+    li.innerHTML=`<span>${label}</span><span class="n">${M.fmtRaw(v)}</span><span class="bar"><i style="width:${Math.max(.5,v/max*100)}%"></i></span>`;
+    ul.appendChild(li);
+  }
+}
+
 function renderAll(withHyp=true){
   const [s,e]=range(period,anchor), [ps,pe]=range(period,shift(period,anchor,-1));
   const cur=totals(s,e), prev=totals(ps,pe);
@@ -599,11 +836,14 @@ function renderAll(withHyp=true){
   $("next").disabled = range(period,shift(period,anchor,1))[0] > today();
   const t=today(); $("today").hidden = t>=s && t<=e;
   renderCards();
-  renderHero(cur,prev,s,e); renderLadder(cur); renderMix(cur); renderChart(); renderRows();
+  const demo=isDemo(); document.body.classList.toggle("is-demo",demo); $("demoBanner").hidden=!demo;
+  renderHero(cur,prev,s,e); renderLadder(cur); renderMix(cur); renderChart(); renderRows(); renderLevers(cur); renderScale(cur,s,e);
   if(withHyp) renderHyp();
 }
 
 /* ---------- interactions ---------- */
+$("ctaImport").onclick=()=>{ const d=$("connect"); d.open=true; d.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); const b=d.querySelector(".card .drop input"); if(b) setTimeout(()=>b.focus({preventScroll:true}),400); };
+$("ctaManual").onclick=()=>{ $("rows").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"}); const b=document.querySelector("#rows button.plus"); if(b) b.focus({preventScroll:true}); };
 $("periods").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; period=b.dataset.p; for(const x of $("periods").children) x.setAttribute("aria-pressed", x===b); renderAll(false); });
 $("metrics").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; metric=b.dataset.m; for(const x of $("metrics").children) x.setAttribute("aria-pressed", x===b); renderAll(false); });
 $("prev").onclick=()=>{ anchor=shift(period,anchor,-1); renderAll(false); };
@@ -845,7 +1085,7 @@ function initConnect(){
   if(connectInit) return; connectInit=true;
   const d=$("connect"); let pref=null;
   try{ pref=localStorage.getItem("empreinte-ia-relier-ouvert"); }catch(e){}
-  d.open = pref===null ? Object.keys(state.imports).length===0 : pref==="1";
+  d.open = pref==="1";
   d.addEventListener("toggle",()=>{ try{ localStorage.setItem("empreinte-ia-relier-ouvert", d.open?"1":"0"); }catch(e){} });
 }
 function renderConnectState(){

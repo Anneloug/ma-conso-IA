@@ -41,7 +41,7 @@ h1 .emo{white-space:nowrap;font-size:.8em}
 .link{border:0;background:none;text-decoration:underline;cursor:pointer;color:var(--ink-2);padding:4px}
 
 /* Hero : la cuve */
-.hero{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:28px;align-items:center;background:var(--paper);border-radius:28px;padding:26px;border:1px solid var(--line)}
+.hero{position:relative;display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:28px;align-items:center;background:var(--paper);border-radius:28px;padding:26px;border:1px solid var(--line)}
 @media (max-width:720px){.hero{grid-template-columns:1fr}.tank{max-width:220px;margin:0 auto}}
 .metrics{margin-bottom:14px}
 .big{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,76px);line-height:.95;letter-spacing:-.03em;margin:6px 0 4px;color:var(--accent)}
@@ -108,11 +108,15 @@ summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:19px
 label.danger:focus-within{outline:3px solid var(--accent);outline-offset:2px}
 .danger{margin-top:12px;border:1px solid var(--line);background:none;border-radius:10px;padding:7px 12px;cursor:pointer;color:var(--ink-2)}
 .back{border:1px solid var(--accent);color:var(--accent);background:var(--paper);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:700}
-.privacy{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:2px dashed var(--line);border-radius:20px;padding:16px 20px;margin:0 0 18px}
-.privacy .lock{font-size:28px;line-height:1}
+.privacy{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:2px dashed var(--line);border-radius:16px;padding:10px 16px;margin:0 0 14px}
+.privacy .p-line{margin:0;display:inline}
+.privacy .p-more{display:inline;margin-left:8px}
+.privacy .p-more[open]{display:block;margin:8px 0 0}
+.privacy .p-more > p{margin:6px 0}
+.privacy .lock{font-size:20px;line-height:1.3}
 .privacy p{margin:0 0 6px;max-width:80ch}
 .privacy details{margin:0}
-.privacy summary{font:inherit;font-weight:700;color:var(--ink-2);font-size:14.5px}
+.privacy summary{font:inherit;font-weight:700;color:var(--ink-2);font-size:14.5px;cursor:pointer;display:inline}
 .privacy details p{color:var(--ink-2);font-size:14.5px;margin-top:6px}
 .connect{background:var(--ink);color:var(--paper);border-radius:28px;padding:24px;margin:0 0 22px}
 .connect-head{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none;border-radius:16px}
@@ -152,7 +156,8 @@ body.admin-mode #admin{display:block}
 .admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .foot{text-align:center;margin-top:24px}
 .card .rm{border:0;background:none;color:var(--ink-2);text-decoration:underline;cursor:pointer;font-size:13px;align-self:flex-start;padding:0}
-.card input[type=text]{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%;color:var(--ink)}
+.card{min-width:0}
+.card input[type=text]{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%;min-width:0;max-width:100%;box-sizing:border-box;color:var(--ink)}
 .card .row2{display:flex;gap:8px}
 .card .row2 .drop{flex:1}
 .demo{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--paper);border:2px solid var(--accent);border-radius:20px;padding:16px 20px;margin:0 0 16px}
@@ -176,9 +181,8 @@ body.is-demo .hero{box-shadow:inset 0 0 0 2px var(--accent)}
 .guess .opts button{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:9px 14px;cursor:pointer;font-weight:700}
 .guess .opts button:hover{border-color:var(--accent)}
 .guess .skip{border:0;background:none;color:var(--ink-2);text-decoration:underline;cursor:pointer;font-size:13.5px;padding:6px 4px;margin-top:6px}
-.guess .fb{font-weight:400;margin:0}
-.hero.veiled #big,.hero.veiled #raw,.hero.veiled .tankbox,.hero.veiled #delta,.hero.veiled #proj{filter:blur(12px);user-select:none;pointer-events:none}
-body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #scale{filter:blur(8px)}
+.guess .fb{font-weight:400;margin:0 0 6px}
+.guess .src{font-weight:400;font-size:12.5px;color:var(--ink-2);margin:4px 0 0}
 .why{margin-top:14px}
 .why summary{cursor:pointer;font-weight:700;color:var(--ink-2)}
 .why[open] summary{margin-bottom:8px}
@@ -199,6 +203,7 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
 .scale li.me .bar i{background:var(--accent);opacity:1}
 .scale .n{font-variant-numeric:tabular-nums;font-weight:700}
 .fine-print{font-size:13px;color:var(--ink-2);margin:10px 0 0}
+.hero-tag{position:absolute;top:14px;right:16px;font-size:13px;padding:4px 12px}
 </style>
 </head>
 <body>
@@ -207,7 +212,7 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
   <header class="top">
     <div>
       <h1>Ce que mon IA consomme vraiment <span class="emo">💧⚡☁️</span></h1>
-      <p class="sub">Chaque question posée à l'IA consomme un peu d'eau, d'électricité et de CO₂. Notez vos usages, regardez la jauge monter, et comparez en verres, en recharges de téléphone ou en trajets en voiture.</p>
+      <p class="sub">Chaque question posée à l'IA consomme un peu d'eau, d'électricité et de CO₂. Suivez vos usages, comparez-les en verres d'eau, en recharges de téléphone ou en trajets en voiture, et découvrez comment les réduire.</p>
     </div>
     <div class="seg" role="group" aria-label="Période" id="periods">
       <button data-p="day" aria-pressed="false">Jour</button>
@@ -220,10 +225,13 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
   <section class="privacy" aria-label="Confidentialité">
     <span class="lock" aria-hidden="true">🔒</span>
     <div>
-      <p><b>Vos usages ne quittent jamais votre appareil.</b> Les historiques importés sont lus dans votre navigateur, et seul le nombre de messages par jour est gardé, chez vous. Ni le contenu de vos conversations, ni vos chiffres, ni votre nom ou votre e-mail ne sont transmis.</p>
+      <p class="p-line"><b>Vos usages ne quittent jamais votre appareil.</b> Ni vos conversations, ni vos chiffres ne sont transmis.</p>
+      <details class="p-more"><summary>En savoir plus</summary>
+      <p>Les historiques importés sont lus dans votre navigateur, et seul le nombre de messages par jour est gardé, chez vous. Ni le contenu de vos conversations, ni vos chiffres, ni votre nom ou votre e-mail ne sont transmis.</p>
       <p>La page compte seulement trois totaux anonymes, sans cookies : les visiteurs, les utilisateurs actifs (qui ont relié au moins une IA) et les visiteurs récurrents.</p>
       <details><summary>Ce qui est enregistré exactement</summary>
         <p>Le comptage utilise GoatCounter, un outil de mesure d'audience sans cookies qui ne crée pas de profil. Il reçoit la visite de la page avec des informations techniques générales (navigateur, taille d'écran, pays déduit de l'adresse IP, qui n'est pas conservée), et deux signaux sans contenu : « une IA a été reliée » (une seule fois par appareil) et « visite un autre jour que la précédente ». Pour savoir s'il faut envoyer ces signaux, la page note sur votre appareil la date de votre dernière visite et un oui ou non ; ces deux informations ne sont jamais envoyées. Aucun chiffre d'usage, aucun contenu, aucun nom ni e-mail.</p>
+      </details>
       </details>
     </div>
   </section>
@@ -231,10 +239,10 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
   <section class="demo" id="demoBanner" hidden>
     <div>
       <p class="demo-t">👀 Ceci est un exemple</p>
-      <p>Vous regardez le suivi d'une personne fictive qui utilise l'IA tous les jours. Reliez votre IA pour découvrir le vôtre.</p>
+      <p>Vous regardez le suivi d'une personne fictive qui utilise l'IA chaque jour pour son travail. Reliez votre IA pour découvrir le vôtre.</p>
     </div>
     <div class="demo-cta">
-      <button class="cta" id="ctaImport">Importer mon historique <small>2 minutes</small></button>
+      <button class="cta" id="ctaImport">Importer mon historique <small>export à demander à votre IA, reçu par e-mail</small></button>
       <button class="cta alt" id="ctaManual">Noter ma journée à la main <small>10 secondes</small></button>
     </div>
   </section>
@@ -244,7 +252,7 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
       <span class="ch-text"><h2>Reliez toutes vos IA 🔌</h2><span class="ch-state" id="connectState"></span></span>
       <span class="chev" aria-hidden="true"></span>
     </summary>
-    <p class="intro">Claude, ChatGPT, Gemini ou n'importe quelle autre IA : importez son historique et la jauge se remplit toute seule. Refaites un import quand vous voulez, il remplace le précédent sans doublon.</p>
+    <p class="intro">Claude, ChatGPT, Gemini ou n'importe quelle autre IA : importez son historique pour voir ce qu'il représente. Refaites un import quand vous voulez, il remplace le précédent sans doublon.</p>
     <div class="cards" id="cards"></div>
     <p class="fine">Pourquoi un import plutôt qu'une connexion directe ? Les assistants IA ne permettent pas à un site extérieur de lire votre historique. L'export officiel de vos données est le seul moyen fiable, et c'est aussi le plus discret : le fichier ne sort pas de votre ordinateur.</p>
   </details>
@@ -257,6 +265,7 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
   </div>
 
   <section class="hero" id="hero">
+    <span class="demo-tag hero-tag">exemple</span>
     <div class="tankbox"><div class="tank" id="tank" aria-hidden="true"></div><p class="cap" id="tankCap"></p></div>
     <div>
       <div class="seg metrics" role="group" aria-label="Indicateur" id="metrics">
@@ -290,7 +299,7 @@ body.veiled #ladder .n,body.veiled #chart svg,body.veiled #levers,body.veiled #s
   <div class="grid">
     <section class="panel">
       <h2>Comment réduire votre impact 🌱 <span class="demo-tag">exemple</span></h2>
-      <p class="note">Ce que vous économiseriez sur la période, avec quelques gestes simples.</p>
+      <p class="note" id="leversNote">Ce que vous économiseriez sur la période, avec quelques gestes simples.</p>
       <ul class="levers" id="levers"></ul>
     </section>
     <section class="panel">
@@ -468,16 +477,18 @@ function impactOf(counts, src="manual"){
 function isDemo(){ return !Object.keys(state.entries).length && !Object.keys(state.imports).length; }
 const DEMO=(()=>{ let a=20261006; const rnd=()=>{ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
   const days={}, t0=today();
-  for(let i=0;i<400;i++){
+  for(let i=0;i<800;i++){
     const d=addDays(t0,-i), we=d.getDay()===0||d.getDay()===6, f=we?0.35:1, k=ymd(d);
-    days[k]={ q:Math.round((6+rnd()*14)*f), c:Math.round((1+rnd()*4)*f), i:rnd()<(we?0.4:0.25)?1+Math.floor(rnd()*2):0, a:!we&&rnd()<0.18?1:0 };
+    const q=Math.round((3+rnd()*6)*f);
+    days[k]={ q, c:rnd()<(we?0.25:0.55)?1:0, i:rnd()<0.08?1:0, a:!we&&rnd()<0.03?1:0, s:Math.round(q*(0.3+rnd()*0.2)) };
   }
   return days; })();
 function totals(s,e){
   const c={q:0,c:0,i:0,a:0}, acc={energy:0,water:0,co2:0,lo:{energy:0,water:0,co2:0},hi:{energy:0,water:0,co2:0},byType:{q:0,c:0,i:0,a:0}}, perSrc={};
   const add=(x,src)=>{
-    const ps=perSrc[src]||(perSrc[src]={q:0,c:0,i:0,a:0});
+    const ps=perSrc[src]||(perSrc[src]={q:0,c:0,i:0,a:0,s:0});
     for(const k in c){ c[k]+=x[k]||0; ps[k]+=x[k]||0; }
+    ps.s+=x.s||0;
     const r=impactOf(x,src); for(const m of ["energy","water","co2"]){ acc[m]+=r[m]; acc.lo[m]+=r.lo[m]; acc.hi[m]+=r.hi[m]; }
     for(const k in c) acc.byType[k]+=r.byType[k];
   };
@@ -582,34 +593,48 @@ const ART={"gorgée":"une gorgée","verre d'eau":"un verre d'eau","bouteille de 
   "envoi d'e-mail simple":"un e-mail simple","km en voiture thermique":"un km en voiture","repas végétarien":"un repas végétarien","repas avec du bœuf":"un repas avec du bœuf","aller-retour Paris–New York en avion":"un aller-retour Paris–New York"};
 const PERIOD_WORD={day:"ce jour-là",week:"cette semaine",month:"ce mois-ci",year:"cette année"};
 
-/* ---------- devinette ---------- */
-const guessed=new Map();
-function guessOff(){ try{ return localStorage.getItem("empreinte-ia-devinette")==="off"; }catch(e){ return false; } }
-function niceNum(x){ if(x<=0) return "0"; const p=Math.pow(10,Math.floor(Math.log10(x))-1); return fr(Math.round(x/p)*p, x<1?3:x<10?1:0); }
-function renderGuess(v,best,key){
-  const box=$("guess"), hero=$("hero");
-  const st=guessed.get(key);
-  if(v<=0 || guessOff() || st==="skip"){ box.hidden=true; hero.classList.remove("veiled"); document.body.classList.remove("veiled"); return; }
-  const n=v/best[1], unit=best[2], em=best[3];
+/* ---------- repère : l'utilisateur d'IA moyen en France ----------
+   Estimation : ~2,8 questions par jour et par utilisateur (ChatGPT : 2,5 milliards de messages par jour
+   pour 900 millions d'utilisateurs hebdomadaires, début 2026), au coût EcoLogits moyen d'une question simple.
+   ChatGPT est l'IA principale de 63 % des utilisateurs français (Baromètre du numérique 2026). */
+const BENCH_Q_PER_DAY = 2.8;
+function benchDay(m){ return BENCH_Q_PER_DAY*unitImpact("avg","q")[m]; }
+function repereDone(){ try{ return localStorage.getItem("empreinte-ia-repere")==="1"; }catch(e){ return false; } }
+function setRepere(){ try{ localStorage.setItem("empreinte-ia-repere","1"); }catch(e){} }
+let repereFeedback="", repereMetric="";
+const ANNUAL_Q={water:"combien d'eau consomme",energy:"combien d'électricité consomme",co2:"combien de CO₂ émet"};
+function asRef(m,v){ const {best}=pickRef(m,v), n=v/best[1]; return `${niceNum(n)} ${n>=2?best[2]:best[0]} ${best[3]}`; }
+function niceNum(x){ if(x<=0) return "0"; const p=Math.pow(10,Math.floor(Math.log10(x))-1); return fr(Math.round(x/p)*p, x<1?2:x<10?1:0); }
+function renderRepere(perDay){
+  const box=$("guess"), M=METRICS[metric], bd=benchDay(metric), year=bd*365;
   box.hidden=false;
-  if(st){ // déjà répondu : on montre le retour
-    hero.classList.remove("veiled"); document.body.classList.remove("veiled");
-    box.innerHTML=`<p class="fb">${st}</p>`; return;
+  if(!repereDone()){
+    const opts=[year/10,year,year*10], order=[[1,0,2],[0,2,1],[2,1,0]][{water:0,energy:1,co2:2}[metric]];
+    box.innerHTML=`<p>🤔 À votre avis, ${ANNUAL_Q[metric]} en un an l'usage de l'IA d'un utilisateur français moyen ?</p>
+      <div class="opts">${order.map(i=>`<button data-i="${i}">≈ ${asRef(metric,opts[i])}</button>`).join("")}</div>
+      <button class="skip" data-skip="1">Passer</button>`;
+    box.onclick=ev=>{
+      const b=ev.target.closest("button"); if(!b) return;
+      if(!b.dataset.skip){
+        const i=+b.dataset.i;
+        repereFeedback = (i===1?"🎯 Bien vu ! ":i===0?"📈 Plus que ça : ":"📉 Moins que ça : ")
+          + `environ ${asRef(metric,year)} par an, soit ${M.fmtRaw(bd)} par jour (environ 3 questions par jour).`;
+      }
+      repereMetric=metric; setRepere(); renderAll(false);
+    };
+    return;
   }
-  hero.classList.add("veiled"); document.body.classList.add("veiled");
-  const opts=[n/10,n,n*10]; const order=[[1,0,2],[0,2,1],[2,1,0]][Math.floor(n*1000)%3];
-  box.innerHTML=`<p>🤔 Avant de regarder : à votre avis, combien ${/^[aeéèêiouyh]/i.test(unit)?"d'":"de "}${unit} ${em} ${PERIOD_WORD[period]} ?</p>
-    <div class="opts">${order.map(i=>`<button data-i="${i}">≈ ${niceNum(opts[i])}</button>`).join("")}</div>
-    <button class="skip" data-skip="1">Voir directement</button> <button class="skip" data-off="1">Ne plus me proposer de deviner</button>`;
-  box.onclick=ev=>{
-    const b=ev.target.closest("button"); if(!b) return;
-    if(b.dataset.off){ try{ localStorage.setItem("empreinte-ia-devinette","off"); }catch(e){} guessed.set(key,"skip"); renderAll(false); return; }
-    if(b.dataset.skip){ guessed.set(key,"skip"); renderAll(false); return; }
-    const i=+b.dataset.i;
-    const fb = i===1 ? `🎯 Bien vu : c'est environ ${niceNum(n)} ${unit}.`
-      : `${i===0?"📈 C'est 10 fois plus":"📉 C'est 10 fois moins"} que votre estimation : environ ${niceNum(n)} ${unit}. Pas facile de se représenter ces quantités, c'est tout l'intérêt de la page !`;
-    guessed.set(key,fb); renderAll(false);
-  };
+  // repère permanent : comparaison avec la moyenne
+  let cmp="";
+  if(perDay>0){
+    const r=perDay/bd, who=isDemo()?"La personne de l'exemple":"Vous";
+    cmp = r>=1.15 ? ` ${who} : ${M.fmtRaw(perDay)} par jour, soit <b>${fr(r,r<10?1:0)} fois plus</b>.`
+        : r<=0.87 ? ` ${who} : ${M.fmtRaw(perDay)} par jour, soit <b>${fr(1/r,1/r<10?1:0)} fois moins</b>.`
+        : ` ${who} : ${M.fmtRaw(perDay)} par jour, <b>dans la moyenne</b>.`;
+  }
+  box.innerHTML=`${repereFeedback&&repereMetric===metric?`<p class="fb">${repereFeedback}</p>`:""}<p class="fb">👥 Repère : un utilisateur d'IA moyen en France ≈ ${M.fmtRaw(bd)} par jour.${cmp}</p>
+    <p class="src">Estimation : environ 2,8 questions par jour et par utilisateur (2,5 milliards de messages quotidiens pour 900 millions d'utilisateurs hebdomadaires de ChatGPT, IA principale de 63 % des utilisateurs français selon le Baromètre du numérique 2026), au coût EcoLogits moyen d'une question.</p>`;
+  box.onclick=null;
 }
 
 function renderHero(cur, prev, s, e){
@@ -623,21 +648,21 @@ function renderHero(cur, prev, s, e){
   $("big").innerHTML = v===0 ? `0 <small>Rien au compteur pour l'instant ${M.drop}</small>` :
     `${fr(n, n<0.1?2:n<10?1:0)} <small>${best[3]} ${name}</small>`;
   const nb=cur.counts.q+cur.counts.c+cur.counts.i+cur.counts.a;
-  $("raw").innerHTML = v===0 ? "Reliez une IA ou notez vos usages pour remplir la jauge." :
+  $("raw").innerHTML = v===0 ? "Reliez une IA ou notez vos usages pour voir ce qu'ils représentent." :
     `${M.fmtRaw(v)} au total pour ${fr(nb,0)} usage${nb>1?"s":""}, dans une ${term("fourchette")} de ${M.fmtRaw(cur.lo[metric])} à ${M.fmtRaw(cur.hi[metric])}.`;
-  renderGuess(v,best,`${metric}|${period}|${ymd(s)}|${isDemo()?"d":"u"}`);
 
-  const pv=prev[metric];
-  if(pv>0){ const d=(v-pv)/pv*100; $("delta").textContent = (d>=0?"+":"")+fr(d,0)+" % par rapport à la période précédente"; $("delta").hidden=false; }
-  else $("delta").hidden=true;
-
-  // projection : jours écoulés dans la période
+  // jours écoulés dans la période (la période en cours n'est pas finie)
   const t=today(); const end = e<t? e : t;
   const days = end<s ? 0 : Math.round((end-s)/864e5)+1;
+  // évolution : moyenne par jour, pour comparer équitablement une période en cours à une période complète
+  const [ps,pe]=range(period,shift(period,anchor,-1)), pdays=Math.round((pe-ps)/864e5)+1, pv=prev[metric];
+  if(pv>0 && days>0){ const d=((v/days)-(pv/pdays))/(pv/pdays)*100; $("delta").textContent = (d>=0?"+":"")+fr(d,0)+" % par jour par rapport à la période précédente"; $("delta").hidden=false; }
+  else $("delta").hidden=true;
+  renderRepere(v>0&&days>0 ? v/days : 0);
   if(v>0 && days>0){
     const perDay=v/days, goal=M.goal[1], dGoal=goal/perDay;
     const txt = dGoal<365 ? fr(dGoal,0)+" jours" : fr(dGoal/365, dGoal/365<100?1:0)+" ans";
-    $("proj").textContent = `À ce rythme (${M.fmtRaw(perDay)} par jour en moyenne), il faudrait ${txt} pour ${M.goalVerb}.`;
+    $("proj").textContent = `À ce rythme (${M.fmtRaw(perDay)} par jour en moyenne), ${isDemo()?"son":"votre"} usage finirait par ${M.goalVerb} en ${txt}.`;
   } else $("proj").textContent="";
 
   // cuve : remplissage de l'unité de référence suivante
@@ -676,11 +701,11 @@ function drawTank(frac, target, v){
   }
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ $("level").style.transform=`translateY(${level-8}px)`; }));
   $("bubbles").style.display = frac>0.08 ? "" : "none";
-  $("tankPct").textContent = frac>=1 ? "Plein !" : fr(frac*100, frac<0.1?1:0)+" %";
+  $("tankPct").textContent = fr(Math.min(frac,1)*100, frac<0.1?1:0)+" %";
   const art=ART[target[0]]||target[0];
-  $("tankCap").textContent = !v ? `La jauge se remplira au fil de vos usages ${target[3]}`
-    : frac>=1 ? `Dernier palier dépassé ${target[3]}`
-    : `Encore ${fr(Math.max(1,(1-frac)*100),0)} % pour atteindre ${art} ${target[3]}`;
+  $("tankCap").textContent = !v ? `La jauge montrera ce que représentent vos usages ${target[3]}`
+    : frac>=1 ? `Au-delà de ${art}, la plus grande de nos échelles ${target[3]}`
+    : `Soit ${fr(Math.min(frac,1)*100, frac<0.1?1:0)} % ${art.replace(/^une? /,(m)=>m==="un "?"d'un ":"d'une ")} ${target[3]}`;
 }
 
 function renderLadder(cur){
@@ -776,33 +801,52 @@ function renderHyp(){
   box.appendChild(reset);
 }
 
+/* Une recherche web : environ 0,3 Wh (ordre de grandeur publié par Google, 2009). */
+const SEARCH_WH=0.3;
+function searchImpact(){ const g=+state.settings.gPerKwh||0; return {energy:SEARCH_WH, water:SEARCH_WH*WATER_PER_WH, co2:SEARCH_WH/1000*g}; }
 /* ---------- leviers d'action ---------- */
 function renderLevers(cur){
   const M=METRICS[metric], ul=$("levers"); ul.innerHTML="";
+  $("leversNote").textContent = isDemo() ? "Ce que cette personne économiserait sur la période, avec quelques gestes simples." : "Ce que vous économiseriez sur la période, avec quelques gestes simples.";
   const val=(id,k)=>unitImpact(id,k)[metric];
   let small=0, concise=0, agents=0, images=0, smallName=new Set();
+  let search=0, sN=0, measuredN=0, unmeasured=false, ratio=0;
+  const S=searchImpact()[metric];
   for(const src in cur.perSrc){
-    const c=cur.perSrc[src], id=modelIdFor(src), sm=SMALL_OF(id);
-    if(id!==sm && c.q){ small+=c.q*Math.max(0,val(id,"q")-val(sm,"q")); smallName.add(ECO[sm].name.replace("Moyenne des petits modèles","un petit modèle")); }
+    const c=cur.perSrc[src], id=modelIdFor(src), sm=SMALL_OF(id), all=c.q+c.c+c.i+c.a;
+    const measured = src==="demo" || (state.imports[src]&&state.imports[src].sm);
+    if(measured){ sN+=c.s; measuredN+=all; search+=c.s*Math.max(0,val(id,"q")-S); if(c.s) ratio=Math.max(ratio,val(id,"q")/Math.max(S,1e-9)); }
+    else if(all) unmeasured=true;
+    const qLeft=Math.max(0,c.q-(measured?c.s:0));   // les recherches sont déjà comptées dans le levier précédent
+    if(id!==sm && qLeft){ small+=qLeft*Math.max(0,val(id,"q")-val(sm,"q")); smallName.add(ECO[sm].name.replace("Moyenne des petits modèles","un petit modèle")); }
     concise+=c.c*val(id,"c")*0.5;
     agents+=c.a*val(id,"a")*0.25;
     images+=c.i*val(id,"i")*0.5;
   }
   const tot=cur[metric]||1;
+  const pct = measuredN ? sN/measuredN*100 : 0;
   const L=[
-    {v:small, t:"Utiliser un petit modèle pour les questions simples", how:`Pour une définition ou une reformulation, ${[...smallName].join(", ")||"un petit modèle"} suffit souvent et consomme bien moins.`},
+    {v:search, t:`${fr(pct,0)} % de ${isDemo()?"ses":"vos"} requêtes auraient pu passer par un moteur de recherche`, how:`Définitions, dates, horaires, météo, traductions d'un mot : pour ces questions, un moteur de recherche, Wikipédia ou un dictionnaire consomme environ ${fr(Math.round(ratio)||6,0)} fois moins qu'une IA.`},
+    {v:small, t:"Utiliser un petit modèle pour les questions simples", how:`Pour une reformulation ou une question courte, ${[...smallName].join(", ")||"un petit modèle"} suffit souvent et consomme bien moins.`},
     {v:concise, t:"Demander des réponses plus courtes", how:"Ajoutez « sois concis » à vos conversations approfondies : deux fois moins de texte, c'est environ deux fois moins d'énergie."},
     {v:agents, t:"Éviter une session d'agent sur quatre", how:"Une demande précise dès le départ évite les relances et les sessions refaites."},
     {v:images, t:"Générer une image sur deux en moins", how:"Décrivez précisément l'image voulue pour éviter les essais successifs."},
   ].filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
-  if(!L.length){ ul.innerHTML=`<li><span class="how">Vos leviers apparaîtront ici dès vos premiers usages.</span></li>`; return; }
+  if(!L.length && !unmeasured){ ul.innerHTML=`<li><span class="how">Vos leviers apparaîtront ici dès vos premiers usages.</span></li>`; return; }
   for(const x of L){
     const {best}=pickRef(metric,x.v), n=x.v/best[1];
     const li=document.createElement("li");
     li.innerHTML=`<b>${x.t}</b><span class="save">− ${M.fmtRaw(x.v)} (${fr(x.v/tot*100,0)} %), soit ${fr(n,n<10?1:0)} ${n>=2?best[2]:best[0]} ${best[3]}</span><span class="how">${x.how}</span>`;
     ul.appendChild(li);
   }
+  if(unmeasured){
+    const li=document.createElement("li");
+    const old=Object.values(state.imports).some(x=>BUILTIN_OK(x)&&!x.sm);
+    li.innerHTML=`<b>Combien de vos requêtes auraient pu passer par un moteur de recherche ?</b><span class="how">${old?"Réimportez votre historique : la page sait maintenant repérer les questions de simple recherche.":"La saisie à la main ne permet pas de le savoir. Importez votre historique pour le découvrir : les questions sont analysées dans votre navigateur, seul le nombre est gardé."}</span>`;
+    ul.appendChild(li);
+  }
 }
+function BUILTIN_OK(x){ return x && !x.name; }
 /* ---------- mise à l'échelle avec la vie courante ---------- */
 const DAILY_REF={
   water:[["☕ Une tasse de café",3800],["🍔 Un burger de bœuf",6000],["🚿 Une douche de 5 min",60000]],
@@ -818,9 +862,9 @@ function renderScale(cur,s,e){
   const M=METRICS[metric], ul=$("scale"); ul.innerHTML="";
   const t=today(), end=e<t?e:t, days=end<s?0:Math.round((end-s)/864e5)+1;
   const perDay=days?cur[metric]/days:0;
-  $("scaleNote").textContent = perDay ? `Votre usage moyen d'une journée, comparé à des gestes du quotidien.` : "Vos usages apparaîtront ici, comparés à des gestes du quotidien.";
+  $("scaleNote").textContent = perDay ? `${isDemo()?"Son":"Votre"} usage moyen d'une journée, comparé à des gestes du quotidien.` : "Vos usages apparaîtront ici, comparés à des gestes du quotidien.";
   $("scaleSrc").textContent=DAILY_SRC[metric];
-  const rows=[["🤖 Votre IA, par jour",perDay,true],...DAILY_REF[metric].map(r=>[r[0],r[1],false])].sort((a,b)=>b[1]-a[1]);
+  const rows=[[isDemo()?"🤖 L'exemple, par jour":"🤖 Votre IA, par jour",perDay,true],["👥 Utilisateur d'IA moyen en France",benchDay(metric),false],...DAILY_REF[metric].map(r=>[r[0],r[1],false])].sort((a,b)=>b[1]-a[1]);
   const max=Math.max(...rows.map(r=>r[1]),1e-9);
   for(const [label,v,me] of rows){
     const li=document.createElement("li"); if(me) li.className="me";
@@ -876,8 +920,23 @@ const SOURCES=[
   {k:"chatgpt", name:"ChatGPT", e:"🌀", steps:["Ouvrez ChatGPT, puis Paramètres et Contrôles des données.","Cliquez sur « Exporter les données ».","Ouvrez le lien reçu par e-mail et téléchargez le .zip.","Déposez le .zip ici, sans le décompresser."]},
   {k:"gemini", name:"Gemini", e:"✨", steps:["Allez sur takeout.google.com et cliquez sur « Tout désélectionner ».","Cochez « Mon activité », puis dans ses options gardez seulement « Applications Gemini ».","Dans « Plusieurs formats », choisissez JSON pour l'activité.","Lancez l'export, téléchargez le .zip et déposez-le ici."]},
 ];
-function addDay(days,iso,kind){ const d=new Date(iso); if(isNaN(d)) return false; const k=ymd(d); const o=days[k]||(days[k]={q:0,c:0,i:0,a:0}); o[kind]++; return true; }
+function addDay(days,iso,kind,search){ const d=new Date(iso); if(isNaN(d)) return false; const k=ymd(d); const o=days[k]||(days[k]={q:0,c:0,i:0,a:0,s:0}); o[kind]++; if(search) o.s=(o.s||0)+1; return true; }
+/* Une question « de moteur de recherche » : courte, factuelle, sans fichier ni demande de rédaction.
+   Le texte est analysé dans le navigateur puis oublié : seul le nombre est gardé. */
+const SEARCH_START=/^(qui|que|quoi|quel(le)?s?|quand|o[uù]|combien|c'?est quoi|qu'?est[- ]ce qu|d[ée]finition|d[ée]finis|traduction|traduis|comment (on dit|dit-on|se dit|s'[ée]crit|[ée]crire)|what|who|when|where|which|how (many|much|old|tall|far|long)|define|definition|translate|meaning|m[ée]t[ée]o|horaires?|adresse|capitale|population|prix d|taux d|date d)/i;
+const NOT_SEARCH=/(r[ée]dige|[ée]cris|corrige|r[ée]sume|reformule|analyse|compare|explique pourquoi|code|script|fonction|tableau|plan d|strat[ée]gie|write|rewrite|summari[sz]e|fix|debug|draft|essay|[{};=<>])/i;
+function isSearchLike(text, hasFile){
+  if(hasFile || typeof text!=="string") return false;
+  const t=text.trim(); if(!t || t.length>140 || t.split("\n").length>2) return false;
+  if(NOT_SEARCH.test(t)) return false;
+  return SEARCH_START.test(t) || (t.endsWith("?") && t.split(/\s+/).length<=10);
+}
 
+function userText(m){
+  let t = typeof m.text==="string" ? m.text : "";
+  if(Array.isArray(m.content)) for(const b of m.content) if(b&&b.type==="text"&&typeof b.text==="string"&&b.text.length>t.length) t=b.text;
+  return t;
+}
 function msgText(m){
   let t = typeof m.text==="string" ? m.text : "";
   let tools = false;
@@ -899,7 +958,8 @@ function parseClaude(files){
         const m=msgs[i]; if(!m || m.sender!=="human" || !m.created_at) continue;
         let deep=false;
         for(let j=i+1;j<msgs.length && msgs[j] && msgs[j].sender!=="human";j++){ const r=msgText(msgs[j]); if(r.tools||r.len>=2500) deep=true; }
-        if(addDay(days,m.created_at, deep?"c":"q")) n++;
+        const file=(Array.isArray(m.attachments)&&m.attachments.length)||(Array.isArray(m.files)&&m.files.length);
+        if(addDay(days,m.created_at, deep?"c":"q", !deep && isSearchLike(userText(m),file))) n++;
       }
     }
   }
@@ -921,7 +981,8 @@ function parseChatGPT(files){
             else if(pt && pt.content_type==="image_asset_pointer" && r.author.role!=="user") img=true;
           }
         }
-        if(addDay(days, m.create_time*1000, img?"i":deep?"c":"q")) n++;
+        const ut=((m.content&&m.content.parts)||[]).filter(x=>typeof x==="string").join(" "), file=((m.content&&m.content.parts)||[]).some(x=>x&&typeof x==="object");
+        if(addDay(days, m.create_time*1000, img?"i":deep?"c":"q", !img&&!deep&&isSearchLike(ut,file))) n++;
       }
     }
   }
@@ -934,7 +995,8 @@ function parseGemini(files){
       if(!a||!a.time) continue;
       const tag=((a.header||"")+" "+((a.products||[]).join(" "))).toLowerCase();
       if(!tag.includes("gemini") && !f.gem) continue;
-      if(addDay(days,a.time,"q")) n++;
+      const ut=String(a.title||"").replace(/^(prompted|requ[êe]te|vous avez demand[ée]|a demand[ée])\s*:?\s*/i,"");
+      if(addDay(days,a.time,"q",isSearchLike(ut,false))) n++;
     }
   }
   return {days,n};
@@ -1045,7 +1107,7 @@ async function importFile(src,fileList,name){
     let r=(BUILTIN[src]||parseGeneric)(files);
     if(!r.n && BUILTIN[src]) r=parseGeneric(files);       // format modifié par l'éditeur : on tente la lecture générique
     if(!r.n){ say(`Aucun message daté trouvé dans ${chosen.map(i=>i.name.split("/").pop()).slice(0,4).join(", ")}. Vérifiez qu'il s'agit bien de l'export ${label}, ou notez vos usages à la main.`); return; }
-    state.imports[src]={days:r.days,n:r.n,at:ymd(today()),...(BUILTIN[src]?{}:{name:label})};
+    state.imports[src]={days:r.days,n:r.n,at:ymd(today()),sm:!!BUILTIN[src],...(BUILTIN[src]?{}:{name:label})};
     save(); renderAll(false); markActive();
   }catch(e){
     say(e.message==="badzip" ? "L'archive .zip n'a pas pu être ouverte. Elle est peut-être incomplète : re-téléchargez-la depuis le lien reçu par e-mail."
@@ -1119,7 +1181,7 @@ function renderCards(){
     // carte « n'importe quelle IA »
     const o=document.createElement("div"); o.className="card manual"; o.dataset.src="new";
     o.innerHTML=`<div class="ttl"><i aria-hidden="true">🧩</i><b>Une autre IA</b></div>
-      <input type="text" id="otherName" placeholder="Son nom : Mistral, Copilot, Perplexity…" aria-label="Nom de l'IA">
+      <input type="text" id="otherName" placeholder="Ex. : Mistral, Copilot…" aria-label="Nom de l'IA">
       <p class="st">Déposez son export (JSON, CSV ou .zip) : la page repère les messages datés que vous avez envoyés. Pas d'export ? Notez à la main.</p>
       <div class="row2"><label class="drop" style="background:var(--water);color:#fff"><span>Déposer l'export</span><input type="file" accept=".zip,.json,.csv,application/zip,application/json,text/csv" aria-label="Importer l'export d'une autre IA"></label>
       <button class="drop" type="button" id="manualBtn">À la main</button></div>`;

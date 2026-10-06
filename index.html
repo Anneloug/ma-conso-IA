@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ma-conso-IA</title>
+    <meta
+      name="description"
+      content="Estimez l'impact énergétique de votre usage des outils d'IA et découvrez des pistes pour consommer plus intelligemment."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">⚡</span>
+          <span>ma-conso-IA</span>
+        </div>
+        <nav class="menu">
+          <a href="#impact">Impact</a>
+          <a href="#simulateur">Simulateur</a>
+          <a href="#actions">Actions</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Comprendre pour mieux consommer</p>
+            <h1>Tu te demandes combien l'IA consomme ?</h1>
+            <p class="lead">
+              On utilise souvent des outils d'intelligence artificielle sans mesurer leur
+              coût énergétique. Ce simulateur donne une estimation claire, simple et
+              concrète de l'impact d'un usage quotidien.
+            </p>
+            <div class="hero-actions">
+              <a class="primary" href="#simulateur">Tester mon usage</a>
+              <a class="secondary" href="#actions">Voir les actions</a>
+            </div>
+            <ul class="stats">
+              <li><strong>0,5 à 3 kWh</strong><span>par 1 000 requêtes</span></li>
+              <li><strong>2x</strong><span>plus vite à mesurer</span></li>
+              <li><strong>100%</strong><span>sans jargon inutile</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-panel" id="impact">
+            <div class="mini-card highlight">
+              <span>Usage type</span>
+              <strong>30 prompts/jour</strong>
+              <small>sur un modèle de taille moyenne</small>
+            </div>
+            <div class="mini-card">
+              <span>Énergie estimée</span>
+              <strong>1,8 kWh/mois</strong>
+              <small>≈ 1 parcours voiture urbain</small>
+            </div>
+            <div class="mini-card">
+              <span>Équivalent</span>
+              <strong>1200 charges</strong>
+              <small>de smartphone par mois</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="calculator" id="simulateur">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">Simulateur</p>
+            <h2>Estime ton impact énergétique</h2>
+          </div>
+
+          <div class="calculator-grid">
+            <div class="controls">
+              <div class="field">
+                <label for="model">Type de modèle</label>
+                <select id="model">
+                  <option value="small">Léger / rapide</option>
+                  <option value="medium" selected>Standard</option>
+                  <option value="large">Puissant / gourmand</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="prompts">Nombre de requêtes par jour</label>
+                <div class="range-wrap">
+                  <input id="prompts" type="range" min="5" max="500" step="5" value="30" />
+                  <output id="promptsValue">30</output>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="tokens">Réponse moyenne par requête</label>
+                <div class="range-wrap">
+                  <input id="tokens" type="range" min="100" max="4000" step="50" value="800" />
+                  <output id="tokensValue">800</output>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="days">Nombre de jours par mois</label>
+                <div class="range-wrap">
+                  <input id="days" type="range" min="7" max="30" step="1" value="30" />
+                  <output id="daysValue">30</output>
+                </div>
+              </div>
+            </div>
+
+            <div class="results-panel">
+              <div class="result-card main">
+                <span class="label">Consommation estimée</span>
+                <strong id="kwhValue">0.00</strong>
+                <small>kWh / mois</small>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card">
+                  <span class="label">Équivalent CO2</span>
+                  <strong id="co2Value">0.00</strong>
+                  <small>kg CO₂e / mois</small>
+                </div>
+                <div class="result-card">
+                  <span class="label">Charges smartphone</span>
+                  <strong id="chargeValue">0</strong>
+                  <small>équivalent / mois</small>
+                </div>
+              </div>
+
+              <div class="insight" id="insight">
+                Un usage régulier d'IA peut rester modeste s'il est ciblé et bien utilisé.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="actions" id="actions">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">Conseils</p>
+            <h2>Réduire l'impact sans perdre en efficacité</h2>
+          </div>
+
+          <div class="action-grid">
+            <article>
+              <span>01</span>
+              <h3>Privilégier des prompts précis</h3>
+              <p>Une demande claire et courte évite les tours inutiles et réduit la consommation.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Choisir le bon modèle</h3>
+              <p>Un petit modèle suffit souvent pour des tâches peu complexes.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Limiter les longues sorties</h3>
+              <p>Les réponses longues consomment plus. Demander uniquement ce qui est utile.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>ma-conso-IA — Comprendre l'énergie cachée de l'intelligence artificielle.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
